@@ -20,4 +20,15 @@ const registerUsers = async (req, res, next) => {
     }
 };
 
-module.exports = { registerUsers };
+const userLogin = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        const userFound = await service.findUser(email, password);
+        res.status(statusCodes.OK).send(userFound);
+    } catch (err) {
+        console.log('error user controller', err.message);
+        return next(err);
+    }
+};
+
+module.exports = { registerUsers, userLogin };

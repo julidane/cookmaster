@@ -1,12 +1,20 @@
 const Joi = require('joi');
 const statusCodes = require('http-status-codes');
 const users = require('../models/UsersModel');
+const auth = require('./auth');
 
 const invalidEntries = 'Invalid entries. Try again.';
 const registeredEmail = 'Email already registered';
+const allFields = 'All fields must be filled';
+const invalidEmailPassword = 'Incorrect username or password';
 
 const UserSchema = Joi.object({
     name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+});
+
+const LoginUserSchema = Joi.object({    
     email: Joi.string().email().required(),
     password: Joi.string().required(),
 });
@@ -26,4 +34,19 @@ const registerUsers = async (name, email, password) => {
     const newUser = users.registerUsers(name, email, password);
     return newUser;
 };
-module.exports = { registerUsers };
+
+const findUser = async (email, password) => {
+    const { error } = LoginUserSchema.validate({ email, password });
+    if (error) throw validateError(statusCodes.UNAUTHORIZED, allFields);
+
+    const userFound = await users.checkUserEmail(email);
+    if (!userFound) throw validateError(statusCodes.UNAUTHORIZED, invalidEmailPassword);
+
+    const { password: _password, ...userWithoutPassword } = userFound;
+
+    const token = auth.genToken(userWithoutPassword);
+
+    return { token };
+};
+
+module.exports = { registerUsers, findUser };
