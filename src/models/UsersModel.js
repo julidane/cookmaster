@@ -8,7 +8,7 @@ const checkUserEmail = async (email) => {
     return emailExists;
 };
 
-const registerUsers = async ({ name, email, password }) => {
+const registerUsers = async (name, email, password) => {
     const newUser = await connection()
     .then((db) => db.collection(users).insertOne({ name, email, password }));
     return newUser;

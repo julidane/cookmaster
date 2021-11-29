@@ -1,8 +1,8 @@
 const bodyParser = require('body-parser');
 const app = require('./app');
-const errorMiddleware = require('../../middlewares/error');
+const errorMiddleware = require('../middlewares/error');
 
-const router = require('../../controllers/router');
+const router = require('../controllers/router');
 
 app.use(bodyParser.json());
 

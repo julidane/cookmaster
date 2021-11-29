@@ -16,14 +16,14 @@ const validateError = (status, message) => ({
     message,
 });
 
-const registerUsers = async ({ name, email, password }) => {
+const registerUsers = async (name, email, password) => {
     const { error } = UserSchema.validate({ name, email, password });
     if (error) throw validateError(statusCodes.BAD_REQUEST, invalidEntries);
 
     const checkEmail = await users.checkUserEmail(email);
     if (checkEmail) throw validateError(statusCodes.CONFLICT, registeredEmail);
 
-    const newUser = users.registerUsers({ name, email, password });
+    const newUser = users.registerUsers(name, email, password);
     return newUser;
 };
 module.exports = { registerUsers };
