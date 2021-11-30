@@ -22,4 +22,9 @@ const registerRecipes = (name, ingredients, preparation) => {
     return newRecipe;
 };
 
-module.exports = { registerRecipes };
+const getAllRecipes = () => {
+    const allRecipes = recipes.getAllRecipes();
+    return allRecipes;
+};
+
+module.exports = { registerRecipes, getAllRecipes };

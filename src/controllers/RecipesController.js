@@ -17,9 +17,19 @@ const registerRecipes = async (req, res, next) => {
         };
         res.status(statusCodes.CREATED).send(finalRecipe);
     } catch (err) {
-        console.log('error user controller', err.message);
+        console.log('error recipes controller', err.message);
         return next(err);
     }
 };
 
-module.exports = { registerRecipes };
+const getAllRecipes = async (_req, res, next) => {
+    try {
+        const allRecipes = await service.getAllRecipes();
+        res.status(statusCodes.OK).send(allRecipes);
+    } catch (err) {
+        console.log('error recipes controller', err.message);
+        return next(err);
+    }
+};
+
+module.exports = { registerRecipes, getAllRecipes };

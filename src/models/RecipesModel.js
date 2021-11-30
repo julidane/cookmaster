@@ -8,4 +8,13 @@ const registerRecipes = async (name, ingredients, preparation) => {
     return newRecipe;
 };
 
-module.exports = { registerRecipes };
+const getAllRecipes = async () => {
+    const getRecipes = await connection()
+    .then((db) => db.collection(recipes).find().toArray());
+    const allRecipes = getRecipes.map(({ _id, name, preparation, ingredients, userId }) => 
+    ({ _id, name, preparation, ingredients, userId }));
+
+    return allRecipes;
+};
+
+module.exports = { registerRecipes, getAllRecipes };
