@@ -4,6 +4,8 @@ const recipes = require('../models/RecipesModel');
 
 const invalidEntries = 'Invalid entries. Try again.';
 const recipeNotFound = 'recipe not found';
+const missingToken = 'missing auth token';
+// const unauthorized = 'user not authorized';
 
 const RecipesSchema = Joi.object({
     name: Joi.string().required(),
@@ -34,4 +36,15 @@ const getRecipeById = async (id) => {
     return recipeById;
 };
 
-module.exports = { registerRecipes, getAllRecipes, getRecipeById };
+const editRecipe = async (id, recipeInfos, userInfo) => { 
+    const { _id: userId } = userInfo;
+    const recipe = await recipes.getRecipeById(id);
+    if (!recipe) throw validateError(statusCodes.NOT_FOUND, recipeNotFound);
+    // if (role !== 'admin' || userId !== recipe.userId) throw validateError(statusCodes.UNAUTHORIZED, unauthorized);
+    if (!userInfo) throw validateError(statusCodes.UNAUTHORIZED, missingToken);    
+
+    const editedRecipe = await recipes.editRecipe(id, recipeInfos, userId);
+    return editedRecipe;
+};
+
+module.exports = { registerRecipes, getAllRecipes, getRecipeById, editRecipe };

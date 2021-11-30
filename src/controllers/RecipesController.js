@@ -43,4 +43,18 @@ const getRecipeById = async (req, res, next) => {
     }    
 };
 
-module.exports = { registerRecipes, getAllRecipes, getRecipeById };
+const editRecipe = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const userInfo = req.user;
+        console.log(req.user);
+        const recipeInfos = req.body;
+        const editedRecipe = await service.editRecipe(id, recipeInfos, userInfo);
+        res.status(statusCodes.OK).send(editedRecipe);
+    } catch (err) {
+        console.log('error recipes controller', err.message);
+        return next(err);
+    }
+};
+
+module.exports = { registerRecipes, getAllRecipes, getRecipeById, editRecipe };

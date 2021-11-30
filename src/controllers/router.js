@@ -3,7 +3,9 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 
 const { registerUsers, userLogin } = require('./UsersController');
-const { registerRecipes, getAllRecipes, getRecipeById } = require('./RecipesController');
+const { registerRecipes, getAllRecipes, getRecipeById, 
+    editRecipe } = require('./RecipesController');
+    
 const validateJWT = require('../api/auth/validateJWT');
 
 router.post('/users', registerUsers);
@@ -13,5 +15,6 @@ router.get('/recipes', getAllRecipes);
 router.get('/recipes', validateJWT, getAllRecipes);
 router.get('/recipes/:id', getRecipeById);
 router.get('/recipes/:id', validateJWT, getRecipeById);
+router.put('/recipes/:id', validateJWT, editRecipe);
 
 module.exports = router;

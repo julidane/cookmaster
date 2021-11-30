@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const model = require('../../models/UsersModel');
 
 const JWTMalformed = 'jwt malformed';
+const missingToken = 'missing auth token';
 
 const API_SECRET = 'mysecret';
 
@@ -9,7 +10,7 @@ module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
   
   if (!token) {
-    return res.status(401).json({ error: JWTMalformed });
+    return res.status(401).json({ message: missingToken });
   }
 
   try {
@@ -20,7 +21,7 @@ module.exports = async (req, res, next) => {
     if (!user) {
       return res
         .status(401)
-        .json({ message: 'Erro ao procurar usuário do token.' });
+        .json({ message: JWTMalformed });
     }
 
     req.user = user;
