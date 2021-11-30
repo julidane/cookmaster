@@ -39,12 +39,17 @@ const getRecipeById = async (id) => {
 const editRecipe = async (id, recipeInfos, userInfo) => { 
     const { _id: userId } = userInfo;
     const recipe = await recipes.getRecipeById(id);
-    if (!recipe) throw validateError(statusCodes.NOT_FOUND, recipeNotFound);
-    // if (role !== 'admin' || userId !== recipe.userId) throw validateError(statusCodes.UNAUTHORIZED, unauthorized);
+    if (!recipe) throw validateError(statusCodes.NOT_FOUND, recipeNotFound);    
     if (!userInfo) throw validateError(statusCodes.UNAUTHORIZED, missingToken);    
 
     const editedRecipe = await recipes.editRecipe(id, recipeInfos, userId);
     return editedRecipe;
 };
 
-module.exports = { registerRecipes, getAllRecipes, getRecipeById, editRecipe };
+const deleteRecipe = async (id, userInfo) => {
+    if (!userInfo) throw validateError(statusCodes.UNAUTHORIZED, missingToken);
+    const deletedRecipe = await recipes.deleteRecipe(id);
+    return deletedRecipe;
+};
+
+module.exports = { registerRecipes, getAllRecipes, getRecipeById, editRecipe, deleteRecipe };
