@@ -13,7 +13,6 @@ const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, API_SECRET);
     const { email } = decoded.data;
-
     return email;
   } catch (err) {
     return null;
