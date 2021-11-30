@@ -3,6 +3,7 @@ const statusCodes = require('http-status-codes');
 const recipes = require('../models/RecipesModel');
 
 const invalidEntries = 'Invalid entries. Try again.';
+const recipeNotFound = 'recipe not found';
 
 const RecipesSchema = Joi.object({
     name: Joi.string().required(),
@@ -22,9 +23,15 @@ const registerRecipes = (name, ingredients, preparation) => {
     return newRecipe;
 };
 
-const getAllRecipes = () => {
-    const allRecipes = recipes.getAllRecipes();
+const getAllRecipes = async () => {
+    const allRecipes = await recipes.getAllRecipes();
     return allRecipes;
 };
 
-module.exports = { registerRecipes, getAllRecipes };
+const getRecipeById = async (id) => {
+    const recipeById = await recipes.getRecipeById(id);
+    if (!recipeById) throw validateError(statusCodes.NOT_FOUND, recipeNotFound);
+    return recipeById;
+};
+
+module.exports = { registerRecipes, getAllRecipes, getRecipeById };
