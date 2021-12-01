@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/tryber/sd-0x-cookmaster-v2#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "body-parser": "1.19.0",
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "express-rescue": "1.1.30",
+    "form-data": "^2.5.1",
     "frisby": "2.1.2",
     "http-status-codes": "^2.1.4",
     "jest": "26.4.1",
@@ -35,7 +37,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "3.5.9",
     "mongoose": "^6.0.13",
-    "multer": "1.4.2",
+    "multer": "^1.4.2",
     "nodemon": "2.0.4",
     "shelljs": "0.8.4"
   },

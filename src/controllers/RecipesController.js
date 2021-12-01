@@ -70,4 +70,19 @@ const deleteRecipe = async (req, res, next) => {
     }
 };
 
-module.exports = { registerRecipes, getAllRecipes, getRecipeById, editRecipe, deleteRecipe };
+const uploadImage = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const userInfo = req.user;
+        // const image = req.file;
+        // console.log(image);
+        const uploadedImage = await service.uploadImage(id, userInfo);
+        res.status(statusCodes.OK).send(uploadedImage);
+    } catch (err) {
+        console.log('error recipes controller', err.message);
+        return next(err);
+    }
+};
+
+module.exports = { 
+    registerRecipes, getAllRecipes, getRecipeById, editRecipe, deleteRecipe, uploadImage };

@@ -52,4 +52,14 @@ const deleteRecipe = async (id, userInfo) => {
     return deletedRecipe;
 };
 
-module.exports = { registerRecipes, getAllRecipes, getRecipeById, editRecipe, deleteRecipe };
+const uploadImage = async (id, userInfo) => {
+    const { _id: userId } = userInfo;
+    if (!userInfo) throw validateError(statusCodes.UNAUTHORIZED, missingToken);
+    const image = `localhost:3000/src/uploads/${id}.jpeg`;
+    
+    const uploadedImage = await recipes.uploadImage(id, image, userId);
+    return uploadedImage;
+};
+
+module.exports = { 
+    registerRecipes, getAllRecipes, getRecipeById, editRecipe, deleteRecipe, uploadImage };

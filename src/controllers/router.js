@@ -1,10 +1,12 @@
 const express = require('express');
 
+const uploadMiddleware = require('../middlewares/upload');
+
 const router = express.Router({ mergeParams: true });
 
 const { registerUsers, userLogin } = require('./UsersController');
 const { registerRecipes, getAllRecipes, getRecipeById, 
-    editRecipe, deleteRecipe } = require('./RecipesController');
+    editRecipe, deleteRecipe, uploadImage } = require('./RecipesController');
 
 const validateJWT = require('../api/auth/validateJWT');
 
@@ -17,5 +19,7 @@ router.get('/recipes/:id', getRecipeById);
 router.get('/recipes/:id', validateJWT, getRecipeById);
 router.put('/recipes/:id', validateJWT, editRecipe);
 router.delete('/recipes/:id', validateJWT, deleteRecipe);
+router.put('/recipes/:id/image/', validateJWT,
+ uploadMiddleware.single('image'), uploadImage);
 
 module.exports = router;
