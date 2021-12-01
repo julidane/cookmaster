@@ -7,6 +7,7 @@ const invalidEntries = 'Invalid entries. Try again.';
 const registeredEmail = 'Email already registered';
 const allFields = 'All fields must be filled';
 const invalidEmailPassword = 'Incorrect username or password';
+const onlyAdmin = 'Only admins can register new admins';
 
 const UserSchema = Joi.object({
     name: Joi.string().required(),
@@ -49,4 +50,11 @@ const findUser = async (email, password) => {
     return { token };
 };
 
-module.exports = { registerUsers, findUser };
+const registerAdmin = (name, email, password, userInfo) => {
+    const { role } = userInfo;
+    if (role !== 'admin') throw validateError(statusCodes.FORBIDDEN, onlyAdmin);
+    const newAdmin = users.registerAdmin(name, email, password);
+    return newAdmin;
+};
+
+module.exports = { registerUsers, findUser, registerAdmin };

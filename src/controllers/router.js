@@ -4,7 +4,7 @@ const uploadMiddleware = require('../middlewares/upload');
 
 const router = express.Router({ mergeParams: true });
 
-const { registerUsers, userLogin } = require('./UsersController');
+const { registerUsers, userLogin, registerAdmin } = require('./UsersController');
 const { registerRecipes, getAllRecipes, getRecipeById, 
     editRecipe, deleteRecipe, uploadImage } = require('./RecipesController');
 
@@ -21,5 +21,6 @@ router.put('/recipes/:id', validateJWT, editRecipe);
 router.delete('/recipes/:id', validateJWT, deleteRecipe);
 router.put('/recipes/:id/image/', validateJWT,
  uploadMiddleware.single('image'), uploadImage);
+router.post('/users/admin', validateJWT, registerAdmin);
 
 module.exports = router;

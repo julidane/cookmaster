@@ -14,4 +14,9 @@ const registerUsers = async (name, email, password) => {
     return newUser;
 };
 
-module.exports = { checkUserEmail, registerUsers };
+const registerAdmin = async (name, email, password) => {
+    const newAdmin = await connection().then((db) => db.collection(users).insertOne({ name, email, password }));
+    return newAdmin;
+}
+
+module.exports = { checkUserEmail, registerUsers, registerAdmin };

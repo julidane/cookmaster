@@ -31,4 +31,24 @@ const userLogin = async (req, res, next) => {
     }
 };
 
-module.exports = { registerUsers, userLogin };
+const registerAdmin = async (req, res, next) => {
+    try {
+        const { name, email, password } = req.body;
+        const userInfo = req.user;
+        const newAdmin = await service.registerAdmin(name, email, password, userInfo);
+        const adminWithId =  {
+            user: {
+                name,
+                email,
+                role: 'admin',
+                _id: newAdmin.insertedId,
+            }
+        }
+        res.status(statusCodes.CREATED).send(adminWithId);
+    } catch (err) {
+        console.log('error user controller', err.message);
+        return next(err);
+    }
+};
+
+module.exports = { registerUsers, userLogin, registerAdmin };
