@@ -36,14 +36,14 @@ const registerAdmin = async (req, res, next) => {
         const { name, email, password } = req.body;
         const userInfo = req.user;
         const newAdmin = await service.registerAdmin(name, email, password, userInfo);
-        const adminWithId =  {
+        const adminWithId = {
             user: {
                 name,
                 email,
                 role: 'admin',
                 _id: newAdmin.insertedId,
-            }
-        }
+            },
+        };
         res.status(statusCodes.CREATED).send(adminWithId);
     } catch (err) {
         console.log('error user controller', err.message);
