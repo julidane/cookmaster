@@ -77,7 +77,7 @@ const uploadImage = async (req, res, next) => {
         const uploadedImage = await service.uploadImage(id, userInfo);
         res.status(statusCodes.OK).send(uploadedImage);
     } catch (err) {
-        console.log('error recipes controller', err.message);
+        console.log('error recipes controller uploadImage', err.message);
         return next(err);
     }
 };
