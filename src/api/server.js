@@ -1,8 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const path = require('path');
 const app = require('./app');
 const errorMiddleware = require('../middlewares/error');
-const path = require('path');
 
 const router = require('../controllers/router');
 
