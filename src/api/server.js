@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(router);
 app.use(errorMiddleware);
 // app.use('/images', express.static('uploads/'));
-app.use('/images', express.static(path.resolve(__dirname, '/uploads')));
+app.use('/images', express.static(path.resolve(__dirname, '../uploads')));
 
 const PORT = 3000;
 
