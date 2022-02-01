@@ -4,7 +4,7 @@ const users = 'users';
 
 const checkUserEmail = async (email) => {
     const emailExists = await connection()
-    .then((db) => db.collection(users).findOne({ email }));
+    .then((db) => db.collection(users).findOne({ email }));    
     return emailExists;
 };
 

@@ -42,7 +42,7 @@ const findUser = async (email, password) => {
 
     const userFound = await users.checkUserEmail(email);
     if (!userFound) throw validateError(statusCodes.UNAUTHORIZED, invalidEmailPassword);
-
+    
     const { password: _password, ...userWithoutPassword } = userFound;
 
     const token = auth.genToken(userWithoutPassword);

@@ -46,7 +46,7 @@ const registerAdmin = async (req, res, next) => {
         };
         res.status(statusCodes.CREATED).send(adminWithId);
     } catch (err) {
-        console.log('error user controller', err.message);
+        console.log('error user controller - registerAdmin', err.message);
         return next(err);
     }
 };
