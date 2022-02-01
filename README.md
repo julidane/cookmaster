@@ -1,4 +1,4 @@
-# Projeto Cookmaster
+# Projeto Cookmaster - Back-End
 
 Projeto do módulo de Back-end realizado durante o curso da [Trybe](https://www.betrybe.com/). Tecnologias utilizadas: Node.Js, MongoDB, Express.
 
