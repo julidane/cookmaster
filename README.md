@@ -1,6 +1,6 @@
 # Projeto Cookmaster
 
-Projeto do módulo de Back-end realizado durante o curso da Trybe. Tecnologias utilizadas: Node.Js, MongoDB, Express.
+Projeto do módulo de Back-end realizado durante o curso da [Trybe] (https://www.betrybe.com/). Tecnologias utilizadas: Node.Js, MongoDB, Express.
 
 ## Objetivo: 
 Desenvolver um app utilizando a arquitetura MSC, onde é possível realizar cadastro e login de pessoas usuárias, que podem enviar, modificar e deletar as receitas enviadas por elas.
